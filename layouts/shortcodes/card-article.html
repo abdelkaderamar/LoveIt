@@ -1,0 +1,44 @@
+{{- $inner := .Inner | .Page.RenderString -}}
+
+
+{{- $iconDetails := "fas fa-angle-right fa-fw" -}}
+{{- if .IsNamedParams -}}
+    {{- $color := .Get "color" | default "purple" -}}
+    <div class="details lyrics {{ $color }}{{ if .Get `open` | ne false }} open{{ end }}">
+        <div class="details-summary lyrics-title">
+            <i class="icon fa-solid fa-music" aria-hidden="true"></i>{{ .Get "title" | default "Paroles" }}<i class="details-icon {{ $iconDetails }}" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="lyrics-content">
+              {{ range split .Inner "\n" }}
+              {{ printf "%s\n" . }}<br>
+              {{ end }}
+            </div>
+        </div>
+    </div>
+{{- else -}}
+  {{- $color := .Get 0 | default "purple" -}}
+  <div class="card-article">
+    <div class="card-article-header">
+      <img src="https://c0.wallpaperflare.com/preview/483/210/436/car-green-4x4-jeep.jpg" alt="rover" />
+    </div>
+    <div class="card-article-body">
+      <span class="tag tag-teal">Technology</span>
+      <h4>
+        Why is the Tesla Cybertruck designed the way it
+        is?
+      </h4>
+      <p>
+        {{ $inner }}
+      </p>
+      <div class="user">
+        <img src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo" alt="user" />
+        <div class="user-info">
+          <h5>July Dec</h5>
+          <small>2h ago</small>
+        </div>
+      </div>
+    </div>
+  </div>
+            
+{{- end -}}

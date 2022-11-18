@@ -1,0 +1,33 @@
+{{- $inner := .Inner | .Page.RenderString -}}
+
+
+{{- $iconDetails := "fas fa-angle-right fa-fw" -}}
+{{- if .IsNamedParams -}}
+    {{- $color := .Get "color" | default "purple" -}}
+    <div class="details lyrics {{ $color }}{{ if .Get `open` | ne false }} open{{ end }}">
+        <div class="details-summary lyrics-title">
+            <i class="icon fa-solid fa-music" aria-hidden="true"></i>{{ .Get "title" | default "Paroles" }}<i class="details-icon {{ $iconDetails }}" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="lyrics-content">
+              {{ range split .Inner "\n" }}
+              {{ printf "%s\n" . }}<br>
+              {{ end }}
+            </div>
+        </div>
+    </div>
+{{- else -}}
+  {{- $color := .Get 0 | default "purple" -}}
+  <div class="details lyrics {{ $color }}{{ if .Get 1 | ne false }} open{{ end }}">
+      <div class="details-summary lyrics-title">
+          <i class="icon fa-solid fa-music" aria-hidden="true"></i>{{ .Get 2 | default "Paroles" }}<i class="details-icon {{ $iconDetails }}" aria-hidden="true"></i>
+      </div>
+      <div class="details-content">
+          <div class="lyrics-content">
+            {{ range split .Inner "\n" }}
+            {{ printf "%s\n" . }}<br>
+            {{ end }}
+          </div>
+      </div>
+  </div>
+{{- end -}}
