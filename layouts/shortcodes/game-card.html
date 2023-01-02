@@ -1,0 +1,51 @@
+{{- $inner := .Inner | .Page.RenderString -}}
+
+
+{{- $iconDetails := "fas fa-angle-right fa-fw" -}}
+{{- if .IsNamedParams -}}
+    {{- $color := .Get "color" | default "purple" -}}
+    <div class="details lyrics {{ $color }}{{ if .Get `open` | ne false }} open{{ end }}">
+        <div class="details-summary lyrics-title">
+            <i class="icon fa-solid fa-music" aria-hidden="true"></i>{{ .Get "title" | default "Paroles" }}<i class="details-icon {{ $iconDetails }}" aria-hidden="true"></i>
+        </div>
+        <div class="details-content">
+            <div class="lyrics-content">
+              {{ range split .Inner "\n" }}
+              {{ printf "%s\n" . }}<br>
+              {{ end }}
+            </div>
+        </div>
+    </div>
+{{- else -}}
+  {{- $cover := .Get 0 | default "game-undefined.jpg" -}}
+  {{- $platform := .Get 1 | default "pc" -}}
+  {{- $editor := .Get 2 | default "Undefined" -}}
+  <!-- teal, purple, pink -->
+  {{- $color := .Get 3 | default "teal" -}}
+  <div class="card-article">
+    <div class="card-article-header">
+      <img src="../../images/games/{{ $cover }}" style="object-fit: contain;" alt="Undefined" />
+    </div>
+    <div class="card-article-body">
+      {{- if $inner -}}
+      <p>
+        {{ $inner }}
+      </p>
+      {{- end -}}
+      <!--
+      <div class="user">
+        <img src="https://yt3.ggpht.com/a/AGF-l7-0J1G0Ue0mcZMw-99kMeVuBmRxiPjyvIYONg=s900-c-k-c0xffffffff-no-rj-mo" alt="user" />
+        <div class="user-info">
+          <h5>July Dec</h5>
+          <small>2h ago</small>
+        </div>
+      </div>
+      -->
+    </div>
+    <div class="card-article-footer">
+    <div><span class="tag tag-{{$color}}">{{ $editor }}</span></div>
+    <img class="img-logo" src="../../images/games/logo-{{ $platform }}.png" />
+    </div>
+</div>
+            
+{{- end -}}
