@@ -18,15 +18,19 @@
     </div>
 {{- else -}}
   {{- $cover := .Get 0 | default "game-undefined.jpg" -}}
-  {{- $platform := .Get 1 | default "pc" -}}
-  {{- $editor := .Get 2 | default "Undefined" -}}
+  {{- $title := .Get 1 | default "undefined" -}}
+  {{- $platform := .Get 2 | default "pc" -}}
+  {{- $editor := .Get 3 | default "Undefined" -}}
   <!-- teal, purple, pink -->
-  {{- $color := .Get 3 | default "teal" -}}
+  {{- $color := .Get 4 | default "teal" -}}
   <div class="card-article">
     <div class="card-article-header">
       <img src="../../images/games/{{ $cover }}" style="object-fit: contain;" alt="Undefined" />
     </div>
     <div class="card-article-body">
+      <h2>
+        {{- $title -}}
+      </h2>
       {{- if $inner -}}
       <p>
         {{ $inner }}
