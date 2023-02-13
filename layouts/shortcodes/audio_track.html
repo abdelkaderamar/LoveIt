@@ -1,0 +1,25 @@
+{{- $inner := .Inner | .Page.RenderString -}}
+
+{{- if .IsNamedParams -}}
+    {{- $url    := .Get "url" }}
+    {{- $name   := .Get "name" | default "" }}
+    {{- $artist := .Get "artist" | default "" }}
+    {{- $cover  := .Get "cover" | default "" }}
+    <audio_track 
+      url="{{ $url }}" 
+      cover="{{ $cover }}"  
+      artist="{{ $artist }}" 
+      name="{{ $name }}" 
+    />
+{{- else -}}
+  {{- $url    := .Get 0 }}
+  {{- $name   := .Get 1 | default "" }}
+  {{- $artist := .Get 2 | default "" }}
+  {{- $cover  := .Get 3 | default "" }}
+  <audio_track 
+    url="{{ $url }}" 
+    cover="{{ $cover }}"  
+    artist="{{ $artist }}" 
+    name="{{ $name }}" 
+  />
+{{- end -}}
