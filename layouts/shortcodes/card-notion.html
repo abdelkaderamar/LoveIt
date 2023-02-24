@@ -3,27 +3,29 @@
 
 {{- $iconDetails := "fas fa-angle-right fa-fw" -}}
 {{- if .IsNamedParams -}}
-    {{- $color := .Get "color" | default "purple" -}}
-    <div class="details lyrics {{ $color }}{{ if .Get `open` | ne false }} open{{ end }}">
-        <div class="details-summary lyrics-title">
-            <i class="icon fa-solid fa-music" aria-hidden="true"></i>{{ .Get "title" | default "Paroles" }}<i class="details-icon {{ $iconDetails }}" aria-hidden="true"></i>
-        </div>
-        <div class="details-content">
-            <div class="lyrics-content">
-              {{ range split .Inner "\n" }}
-              {{ printf "%s\n" . }}<br>
-              {{ end }}
-            </div>
-        </div>
-    </div>
+    {{- $title := .Get "title" -}}
+    {{- $url := .Get "url" -}}
+    {{- $url_text := .Get "url_text" | default "Url" -}}
+    <article>
+      <div class="text">
+        <h3>{{ $title }}</h3>
+        <p>{{ $inner }}</p>
+        {{- if $url -}}
+        <a href="{{ $url }}" class="btn">{{ $url_text }}</a>
+        {{- end -}}
+      </div>
+    </article>
 {{- else -}}
-  {{- $color := .Get 0 | default "purple" -}}
+  {{- $title := .Get 0 -}}
+  {{- $url := .Get 1 -}}
+  {{- $url_text := .Get 2 | default "Url" -}}
   <article>
     <div class="text">
-      <h3>🏠 Home</h3>
+      <h3>{{ $title }}</h3>
       <p>{{ $inner }}</p>
-      <a href="" class="btn">read more</a>
+      {{- if $url -}}
+      <a href="{{ $url }}" class="btn">{{ $url_text }}</a>
+      {{- end -}}
     </div>
   </article>
-           
 {{- end -}}
